@@ -8,7 +8,7 @@ scaler = joblib.load('models/motion_scaler.joblib')
 feature_names = scaler.feature_names_in_
 
 # 2. Read the original dataset to test a full "Correct" session
-df_raw = pd.read_excel(r'D:\الكليه\Project 3\Motion-Correctness-Classification\data\mpuData.xlsx')
+df_raw = pd.read_excel('data/mpuData.xlsx')
 
 # Extract all rows belonging to a specific correct Stretching session for the Shoulder
 sample_session = df_raw[(df_raw['Movement_Name'] == 'Stretching') & 
