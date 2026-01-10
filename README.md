@@ -25,7 +25,8 @@ Motion-Classification-Rehab/ ├── models/ # Final trained models & scalers 
 
 The model is trained to monitor various rehabilitation movements across key joints:
 - **Exercises:** Stretching, and more.
-- **Joints Covered:** - 🦴 Shoulder
+- **Joints Covered:**
+  - 🦴 Shoulder
   - 🦴 Elbow
   - 🦴 Wrist
   - 🦴 Hand
@@ -66,19 +67,23 @@ The pipeline automatically selects the best model based on **Cross-Validation (C
 ### 1️⃣ Install Dependencies
 
 pip install pandas numpy scikit-learn xgboost joblib openpyxl
-2️⃣ Test the Model (Inference)
+
+### 2️⃣ Test the Model (Inference)
 To predict the correctness of a new movement session:
 
 Bash
 
 python scripts/predict.py
-3️⃣ Log New Data
+
+### 3️⃣ Log New Data
 To record new sensor data into a separate Excel file for future training:
 
 Bash
 
 python scripts/logger.py
-🧩 Future Roadmap
+
+### 🧩 Future Roadmap
+
 [ ] Expand Dataset: Collect 100+ sessions for more robust training.
 
 [ ] Mobile Integration: Export models to TFLite for Android/iOS apps.
@@ -87,13 +92,13 @@ python scripts/logger.py
 
 [ ] Portion Detection: Detect if the patient performed the full range of motion.
 
-🙌 Contributors
+### 🙌 Contributors
 * [Sohaila Mohamed](https://github.com/sohailamohamed15)
 
 * Nadin Awad
 
-📜 License
+### 📜 License
 This project is released under the MIT License.
 
-⭐ Support the Project
+### ⭐ Support the Project
 If you find this project useful for rehabilitation technology, give it a star on GitHub!
