@@ -64,7 +64,7 @@ The pipeline automatically selects the best model based on **Cross-Validation (C
 ## 📦 How to Use
 
 ### 1️⃣ Install Dependencies
-```bash
+
 pip install pandas numpy scikit-learn xgboost joblib openpyxl
 2️⃣ Test the Model (Inference)
 To predict the correctness of a new movement session:
