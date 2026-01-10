@@ -1,9 +1,5 @@
 # Motion Correctness Classification for Rehabilitation 🚀
 
-<p align="center">
-  <img src="https://img.icons8.com/fluency/144/physical-therapy.png" alt="Motion AI Logo" width="150" />
-</p>
-
 ## 📌 Project Overview
 
 **Motion Correctness AI** is a machine-learning-powered system designed to support physical therapy and rehabilitation. By analyzing data from IMU sensors (MPU6050), the model classifies patient movements as **Correct** or **Incorrect**, providing real-time feedback to ensure safe and effective recovery.
