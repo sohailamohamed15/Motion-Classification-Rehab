@@ -1,96 +1,141 @@
-# Motion Correctness Classification for Rehabilitation 🚀
+# Motion Correctness Classification for Rehabilitation 🦾🤖
 
 ## 📌 Project Overview
 
-**Motion Correctness AI** is a machine-learning-powered system designed to support physical therapy and rehabilitation. By analyzing data from IMU sensors (MPU6050), the model classifies patient movements as **Correct** or **Incorrect**, providing real-time feedback to ensure safe and effective recovery.
+**Motion Correctness Classification** is an AI-based system designed to support **physical therapy and rehabilitation** by automatically evaluating the quality of human movements using **IMU (MPU6050) sensors**.
 
-This repository contains the full end-to-end pipeline:
-- **Raw Sensor Processing** (Accel, Pitch, Roll)
-- **Feature Engineering** (Physics-based & Statistical features)
-- **Machine Learning Models** (XGBoost, Logistic Regression, etc.)
-- **Inference & Logging Scripts** for real-time deployment
+The system analyzes motion data collected from **four upper-limb joints** and classifies each performed movement as:
+
+- ✅ **Correct**
+- ❌ **Incorrect**
+
+This project is developed as part of a **Biomedical Engineering Graduation Project**, with a strong focus on **AI-driven healthcare and rehabilitation systems**.
+
+---
+
+## 🎯 Project Objectives
+
+- Analyze raw IMU sensor data collected during rehabilitation exercises  
+- Extract meaningful motion features from time-series signals  
+- Train machine learning models to assess movement correctness  
+- Provide objective, data-driven feedback to support physiotherapists  
 
 ---
 
 ## 📁 Repository Structure
 
-Motion-Classification-Rehab/ ├── models/ # Final trained models & scalers │ ├── final_motion_classifier.joblib │ └── motion_scaler.joblib │ ├── code/ # Training & analysis notebooks │ └── mpudata.ipynb # EDA, feature extraction, and training │ ├── scripts/ # Utility scripts for deployment │ ├── predict.py # Real-time inference script │ └── logger.py # Script to save new sensor data to Excel │ ├── data/
+Motion-Correctness-Classification/
+│
+├── models/
+│   ├── best_mpu_model.joblib
+│   ├── scaler.joblib
+│   └── feature_list.joblib
+│
+├── notebooks/
+│   └── classification_model.ipynb   # EDA, preprocessing, and training
+│
+├── scripts/
+│   └── predict.py                   # Inference on new movement sessions
+│
+├── data/
+│   └── mpuData.xlsx                 # Collected IMU dataset
+│
+└── README.md
+🦾 Supported Movements & Joints
+Movements
+Stretching
 
-│ └── MPU data.csv # Training dataset │ └── README.md
+Lift Up
 
+Joints Monitored
+IMU sensors are mounted on four upper-limb joints:
 
----
+🦴 Shoulder
 
-## 🦾 Supported Exercises & Joints
+🦴 Elbow
 
-The model is trained to monitor various rehabilitation movements across key joints:
-- **Exercises:** Stretching, and more.
-- **Joints Covered:**
-  - 🦴 Shoulder
-  - 🦴 Elbow
-  - 🦴 Wrist
-  - 🦴 Hand
+🦴 Wrist
 
----
+🦴 Hand
 
-## 🧠 Technical Architecture
+The final prediction considers all joints together, not a single joint in isolation.
 
-The system transforms raw time-series sensor data into a format understandable by Machine Learning models:
+🧠 AI & Machine Learning Pipeline
+1️⃣ Data Preprocessing
+Sorting and cleaning raw IMU data
 
-### 1. Feature Engineering
-- **Physical Features:** Calculates `Accel_Mag` (Resultant Acceleration) and `Angle_Diff` (Pitch vs Roll).
-- **Statistical Aggregation:** Converts 100+ rows of raw data into a single row of **Mean** and **Standard Deviation** to capture movement stability.
+Reconstructing movement sessions
 
-### 2. Algorithms Used
-- **XGBoost:** Best performing model for handling non-linear patterns in motion.
-- **Logistic Regression:** Used for baseline comparison and linear classification.
-- **Random Forest & AdaBoost:** Evaluated for ensemble robustness.
+Handling time-series inconsistencies
 
----
+2️⃣ Feature Engineering
+For each sliding window:
 
-## 📊 Performance Summary
+Statistical features:
 
-The pipeline automatically selects the best model based on **Cross-Validation (CV) Accuracy** to ensure the model generalizes well to new patients.
+Mean
 
-| Model Name | Test Accuracy | CV Accuracy (Mean) | F1 Score |
-| :--- | :---: | :---: | :---: |
-| **XGBoost** | **0.50** | **0.75** | **0.33** |
-| Logistic Regression | 1.00 | 0.50 | 1.00 |
-| AdaBoost | 0.75 | 0.42 | 0.73 |
+Standard Deviation
 
-> 💡 *Note: The high Test Accuracy vs. lower CV Accuracy in some models is due to the small sample size (16 sessions), which will stabilize as more data is collected.*
+Minimum
 
----
+Maximum
 
-## 📦 How to Use
+Extracted from:
 
-### 1️⃣ Install Dependencies
+Pitch
 
-pip install pandas numpy scikit-learn xgboost joblib openpyxl
+Roll
 
-### 2️⃣ Test the Model (Inference)
-To predict the correctness of a new movement session:
+Acceleration (X, Y, Z)
 
-Bash
+3️⃣ Machine Learning Models
+The following models were trained and evaluated:
 
+Logistic Regression (baseline)
+
+Random Forest
+
+AdaBoost
+
+XGBoost
+
+The best-performing model is selected based on F1-score, which is critical for medical and rehabilitation applications.
+
+📊 Model Performance
+Model	Accuracy	F1 Score
+Random Forest	0.97	0.97
+XGBoost	0.95	0.95
+AdaBoost	0.89	0.86
+Logistic Regression	0.70	0.63
+
+⚠️ Due to the limited dataset size, performance is expected to further improve as more rehabilitation sessions are collected.
+
+🚀 How to Use
+1️⃣ Install Dependencies
+bash
+Copy code
+pip install numpy pandas scikit-learn xgboost joblib openpyxl
+2️⃣ Run Inference
+bash
+Copy code
 python scripts/predict.py
+The script outputs:
 
-### 3️⃣ Log New Data
-To record new sensor data into a separate Excel file for future training:
+Movement type
 
-Bash
+Correct / Incorrect classification
 
-python scripts/logger.py
+Confidence score
 
-### 🧩 Future Roadmap
+🧩 Future Work
+Expand dataset with more patients and rehabilitation sessions
 
-[ ] Expand Dataset: Collect 100+ sessions for more robust training.
+Real-time inference from live IMU sensor streams
 
-[ ] Mobile Integration: Export models to TFLite for Android/iOS apps.
+Integration with mobile or VR rehabilitation platforms
 
-[ ] Real-time Visualization: Dashboard to show patient progress over time.
-
-[ ] Portion Detection: Detect if the patient performed the full range of motion.
+Sequence-level modeling using LSTM or HMM
 
 ### 🙌 Contributors
 * [Sohaila Mohamed](https://github.com/sohailamohamed15)
